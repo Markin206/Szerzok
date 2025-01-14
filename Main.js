@@ -76,7 +76,7 @@ function renderTable(){//definiálom a renderTable függvényt
         row.appendChild(csapat);//a csapat cella hozzáfűzzűk a rowhoz
 
         const mu1 = document.createElement('td');
-        mu1.innerHTML = createElement.mu1;//a mu1 cella tartalmaza a ciklusváltozó objektumnak mu1 tulajdonságát
+        mu1.innerHTML = currentElement.mu1;//a mu1 cella tartalmaza a ciklusváltozó objektumnak mu1 tulajdonságát
         row.appendChild(mu1);//a mu1 cella hozzáfűzzűk a rowhoz
         if(currentElement.mu2 !== undefined){// vizsgalom a mu2 erteket a ciklusvaltozo objektumanak, ha az nem egyenlo undefineddel, akkor vegrehajtja az elagazason beluli utasitasokat 
             const mu2 = document.createElement('td');//létrehozzuk a mu2 elemet
@@ -87,7 +87,7 @@ function renderTable(){//definiálom a renderTable függvényt
 }
 renderTable()//meghívjuk a függvényt
 
-const form = document.getElementById('urlap');
+const form = document.getElementById('form');
 
 form.addEventListener('submit', function(e){
     e.preventDefault();//megakadalyozom, hogy a bongeszo alapertelmezett mukodese lefusson submit eseten
@@ -100,7 +100,7 @@ form.addEventListener('submit', function(e){
     const szerzo_value = HtmlElementSzerzo.value;//a HtmlElementSzerzo.value erteket beleteszem egy lokalis valtozoba
     const group_value = HtmlElementGroup.value;//a HtmlElementGroup.value erteket beleteszem egy lokalis valtozoba
     const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
-    const Masodik_value = HtmlElementMasodik.checked === false ? undefined: HtmlElementMu2.value;//// ha nincs kipipálva akkor a HtmlElementMu2.value az undefined
+    HtmlElementMasodik.checked === false ? undefined: HtmlElementMu2.value;//// ha nincs kipipálva akkor a HtmlElementMu2.value az undefined
     const Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
 
     const newElement = {//array tömb negyedik elemnek létrehozása(4th row)
