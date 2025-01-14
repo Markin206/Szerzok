@@ -1,0 +1,18 @@
+páros oszlopok háttérszíneik 
+td:nth-child(2n){
+    background-color: grey;
+}
+td:nth-child(2n+1){
+    background-color: blueviolet;
+}
+table,tr,td,th{
+    border-style: solid;
+    border-color: aquamarine;
+    border-width: 1px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.error{
+    color: red;
+}
