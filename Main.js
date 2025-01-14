@@ -62,30 +62,27 @@ thead.appendChild(tablaheader)//tablaheader sorának hozzáadása
 
 //----------------------------------------------------------------------------------------- ciklus
 
-for(let i = 0;i < array.length;i++){//végig iterálunk/megyünk az array tömb elemein
-    const currentElement = array[i];//block szinten definiálok egy változót, aimbe beleteszem az array aktuális ciklusváltozó számú elemet
-    const row = document.createElement('tr')//létrehozom a row elemet
-    tabla.appendChild(row);//hozzáadom a row elemet a táblához
+function renderTable(){//definiálom a renderTable függvényt
+    for(const currentElement of array){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
+        const row = document.createElement('tr');//létrehozzuk a row elemet
+        tabla.appendChild(row);//a sort hozzá adjuk a táblához
 
-    const szerzo = document.createElement('td')//létrehozunk egy szerzo nevű elemet
-    szerzo.innerHTML = currentElement.szerzo//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(szerzo)//hozzáadom a row elemhez a szerző cellát
+        const szerzo = document.createElement('td');//létrehozzuk a szerzo cellát
+        szerzo.innerHTML = currentElement.szerzo;//a szerzo cella tartalmaza a ciklusváltozó objektumnak szerző tulajdonságát
+        row.appendChild(szerzo);//a szerző cella hozzáfűzzűk a rowhoz
 
-    const csapat = document.createElement('td')//létrehozunk egy csapat nevű elemet
-    csapat.innerHTML = currentElement.csapat//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(csapat)//hozzáadom a row elemhez a csapat cellát
+        const csapat = document.createElement('td');
+        csapat.innerHTML = currentElement.csapat;//a csapat cella tartalmaza a ciklusváltozó objektumnak csapat tulajdonságát
+        row.appendChild(csapat);//a csapat cella hozzáfűzzűk a rowhoz
 
-    const mu1 = document.createElement('td')//létrehozunk egy mu1 nevű elemet
-    mu1.innerHTML = currentElement.mu1//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(mu1)//hozzáadom a row elemhez a mu1 cellát
-
-
-    if(currentElement.mu2 === undefined){//ha a mu2 tartalma üres akkor a mu1-es cella colspanje 2 lesz
-        mu1.colSpan = 2;
-    }
-    else{//ha a mu2 tartalmaz értéket akkor létrehozzuk a mu2 cellát
-        const mu2 = document.createElement('td');//létrehozunk egy mu2 nevű elemet
-        mu2.innerHTML = currentElement.mu2;//A cella tartalmához hozzá adjuk a block szinten definiált változót
-        row.appendChild(mu2)//hozzáadom a row elemhez a mu2 cellát
+        const mu1 = document.createElement('td');
+        mu1.innerHTML = createElement.mu1;//a mu1 cella tartalmaza a ciklusváltozó objektumnak mu1 tulajdonságát
+        row.appendChild(mu1);//a mu1 cella hozzáfűzzűk a rowhoz
+        if(currentElement.mu2 !== undefined){// vizsgalom a mu2 erteket a ciklusvaltozo objektumanak, ha az nem egyenlo undefineddel, akkor vegrehajtja az elagazason beluli utasitasokat 
+            const mu2 = document.createElement('td');//létrehozzuk a mu2 elemet
+            mu2.innerHTML = currentElement.mu2;//a mu2 cella tartalmaza a ciklusváltozó objektumnak mu2 tulajdonságát
+            row.appendChild(mu2);//a mu2 cella hozzáfűzzűk a rowhoz
+        }
     }
 }
+renderTable()//meghívjuk a függvényt
