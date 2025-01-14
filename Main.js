@@ -69,21 +69,23 @@ for(let i = 0;i < array.length;i++){//végig iterálunk/megyünk az array tömb 
 
     const szerzo = document.createElement('td')//létrehozunk egy szerzo nevű elemet
     szerzo.innerHTML = currentElement.szerzo//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(szerzo)
+    row.appendChild(szerzo)//hozzáadom a row elemhez a szerző cellát
 
     const csapat = document.createElement('td')//létrehozunk egy csapat nevű elemet
     csapat.innerHTML = currentElement.csapat//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(csapat)
+    row.appendChild(csapat)//hozzáadom a row elemhez a csapat cellát
 
     const mu1 = document.createElement('td')//létrehozunk egy mu1 nevű elemet
     mu1.innerHTML = currentElement.mu1//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(mu1)
+    row.appendChild(mu1)//hozzáadom a row elemhez a mu1 cellát
 
-    const mu2 = document.createElement('td')//létrehozunk egy mu2 nevű elemet
-    mu2.innerHTML = currentElement.mu2//A cella tartalmához hozzá adjuk a block szinten definiált változót
-    row.appendChild(mu2)
 
-    if(mu2 == undefined){//ha a mu2-ben nincs semmi akkor a mu1 tulajdonságnak colspanje 2
-        mu1.colSpan = 2
+    if(currentElement.mu2 === undefined){//ha a mu2 tartalma üres akkor a mu1-es cella colspanje 2 lesz
+        mu1.colSpan = 2;
+    }
+    else{//ha a mu2 tartalmaz értéket akkor létrehozzuk a mu2 cellát
+        const mu2 = document.createElement('td');//létrehozunk egy mu2 nevű elemet
+        mu2.innerHTML = currentElement.mu2;//A cella tartalmához hozzá adjuk a block szinten definiált változót
+        row.appendChild(mu2)//hozzáadom a row elemhez a mu2 cellát
     }
 }
