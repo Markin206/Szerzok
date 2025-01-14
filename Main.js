@@ -60,7 +60,7 @@ muveik.colSpan = 2;//a művek oszlopnak colspan értéke 2.
 tablaheader.appendChild(muveik)//hozzáadom a fejléchez a műveik cellát
 thead.appendChild(tablaheader)//tablaheader sorának hozzáadása
 
-//----------------------------------------------------------------------------------------- ciklus
+//----------------------------------------------------------------------------------------- függvény
 
 function renderTable(){//definiálom a renderTable függvényt
     for(const currentElement of array){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
@@ -86,3 +86,30 @@ function renderTable(){//definiálom a renderTable függvényt
     }
 }
 renderTable()//meghívjuk a függvényt
+
+const form = document.getElementById('urlap');
+
+form.addEventListener('submit', function(e){
+    e.preventDefault();//megakadalyozom, hogy a bongeszo alapertelmezett mukodese lefusson submit eseten
+    const HtmlElementSzerzo = document.getElementById('szerzo_nev');//elkerem a htmlelementet, amely a szerzo_nev id-val van definialva
+    const HtmlElementGroup = document.getElementById('group');//elkerem a htmlelementet, amely a group id-val van definialva
+    const HtmlElementMu1 = document.getElementById('mu1');//elkerem a htmlelementet, amely a mu1 id-val van definialva
+    const HtmlElementMasodik = document.getElementById('masodik');//elkerem a htmlelementet, amely a masodik id-val van definialva
+    const HtmlElementMu2 = document.getElementById('mu2');//elkerem a htmlelementet, amely a mu2 id-val van definialva
+
+    const szerzo_value = HtmlElementSzerzo.value;//a HtmlElementSzerzo.value erteket beleteszem egy lokalis valtozoba
+    const group_value = HtmlElementGroup.value;//a HtmlElementGroup.value erteket beleteszem egy lokalis valtozoba
+    const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
+    const Masodik_value = HtmlElementMasodik.checked === false ? undefined: HtmlElementMu2.value;//// ha nincs kipipálva akkor a HtmlElementMu2.value az undefined
+    const Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
+
+    const newElement = {//array tömb negyedik elemnek létrehozása(4th row)
+        szerzo: szerzo_value,// az uj objektum szerzo erteke a szerzo_value lesz
+        csapat: group_value,// az uj objektum csapat erteke a group_value lesz
+        mu1: Mu1_value,// az uj objektum mu1 erteke a Mu1_value lesz
+        mu2: Mu2_value// az uj objektum mu2 erteke a Mu2_value lesz
+    }
+    array.push(newElement);//hozzaadom az arrayhez az uj objektumot
+    tabla.innerHTML = "";//A tablazatom tartalmat ures stringel teszem egyenlove, ami azt eredmenyezi hogy torlodik a tabla
+    renderTable();//A táblázatott újrameghívom
+})
