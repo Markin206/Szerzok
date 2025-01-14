@@ -103,7 +103,7 @@ form.addEventListener('submit', function(e){
     const group_value = HtmlElementGroup.value;//a HtmlElementGroup.value erteket beleteszem egy lokalis valtozoba
     const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
     const masodik_value = HtmlElementMasodik.checked;
-    const Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
+    let Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
     if(masodik_value === false){
         Mu2_value = undefined;
     }
