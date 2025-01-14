@@ -87,6 +87,8 @@ function renderTable(){//definiálom a renderTable függvényt
 }
 renderTable()//meghívjuk a függvényt
 
+//----------------------------------------------------------------------------------------- form
+
 const form = document.getElementById('form');
 
 form.addEventListener('submit', function(e){
@@ -100,14 +102,17 @@ form.addEventListener('submit', function(e){
     const szerzo_value = HtmlElementSzerzo.value;//a HtmlElementSzerzo.value erteket beleteszem egy lokalis valtozoba
     const group_value = HtmlElementGroup.value;//a HtmlElementGroup.value erteket beleteszem egy lokalis valtozoba
     const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
-    HtmlElementMasodik.checked === false ? undefined: HtmlElementMu2.value;//// ha nincs kipipálva akkor a HtmlElementMu2.value az undefined
+    const masodik_value = HtmlElementMasodik.checked;
     const Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
+    if(masodik_value === false){
+        Mu2_value = undefined;
+    }
 
     const newElement = {//array tömb negyedik elemnek létrehozása(4th row)
         szerzo: szerzo_value,// az uj objektum szerzo erteke a szerzo_value lesz
         csapat: group_value,// az uj objektum csapat erteke a group_value lesz
         mu1: Mu1_value,// az uj objektum mu1 erteke a Mu1_value lesz
-        mu2: Mu2_value// az uj objektum mu2 erteke a Mu2_value lesz
+        mu2: Mu2_value// az uj objektum mu2 erteke a Mu2_value lesz}
     }
     array.push(newElement);//hozzaadom az arrayhez az uj objektumot
     tabla.innerHTML = "";//A tablazatom tartalmat ures stringel teszem egyenlove, ami azt eredmenyezi hogy torlodik a tabla
