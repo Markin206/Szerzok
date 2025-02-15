@@ -83,6 +83,9 @@ function renderTable(){//definiálom a renderTable függvényt
             mu2.innerHTML = currentElement.mu2;//a mu2 cella tartalmaza a ciklusváltozó objektumnak mu2 tulajdonságát
             row.appendChild(mu2);//a mu2 cella hozzáfűzzűk a rowhoz
         }
+        else{
+            mu1.colSpan = 2;
+        }
     }
 }
 renderTable()//meghívjuk a függvényt
@@ -104,9 +107,7 @@ form.addEventListener('submit', function(e){
     const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
     const masodik_value = HtmlElementMasodik.checked;
     let Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
-    if(masodik_value === false){
-        Mu2_value = undefined;
-    }
+    
 
     const newElement = {//array tömb negyedik elemnek létrehozása(4th row)
         szerzo: szerzo_value,// az uj objektum szerzo erteke a szerzo_value lesz
@@ -114,6 +115,11 @@ form.addEventListener('submit', function(e){
         mu1: Mu1_value,// az uj objektum mu1 erteke a Mu1_value lesz
         mu2: Mu2_value// az uj objektum mu2 erteke a Mu2_value lesz}
     }
+
+    if (!masodik_value) {
+        Mu2_value = undefined;
+    }
+
     array.push(newElement);//hozzaadom az arrayhez az uj objektumot
     tabla.innerHTML = "";//A tablazatom tartalmat ures stringel teszem egyenlove, ami azt eredmenyezi hogy torlodik a tabla
     renderTable();//A táblázatott újrameghívom
