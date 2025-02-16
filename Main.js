@@ -108,7 +108,7 @@ form.addEventListener('submit', function(e){
     for(const errorElement of errorHtmlElements){ // Vegigiteralunk a visszakapott errorhtmlelementeken
         errorElement.innerHTML = ''; // toroljuk az aktualis elem tartalmat
     }
-    if(simpleValidation(HtmlElementMu2, HtmlElementMasodik)){
+    if(simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1)){
     const szerzo_value = HtmlElementSzerzo.value;//a HtmlElementSzerzo.value erteket beleteszem egy lokalis valtozoba
     const group_value = HtmlElementGroup.value;//a HtmlElementGroup.value erteket beleteszem egy lokalis valtozoba
     const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
@@ -137,11 +137,12 @@ form.addEventListener('submit', function(e){
      * és miután kiürítettük újra meghívjuk a tablet
      * aztán a formra nyomunk egy resetet
      */
-    
+    if(validatefield(HtmlElementMu2,HtmlElementMasodik)){
     array.push(newElement);
     tbody.innerHTML = "";
     renderTable();
     form.reset()
+    }
     }
 })
 
@@ -149,69 +150,70 @@ form.addEventListener('submit', function(e){
 
 
 //------------------------------------------------------------------------------------------------
+//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
+    function simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1){
+    let valid = true; // a valid valtozo erteke igaz
 
-function simpleValidation(HtmlElementMu2,HtmlElementMasodik){
-    let valid = true;
-    /**
-     * ha a checkbox üres de mu2 inputben van érték akkor kiírja a hibát
-     */
-    if(!HtmlElementMasodik.checked && HtmlElementMu2.value !== ""){
-        valid = false;
-        validatefield(HtmlElementMu2, HtmlElementMasodik, "Ha akkarsz második műt megadni pipáld ki a dobozt")
+    if(!validationFormHTMLField(HtmlElementSzerzo, "Kötelező a szerző neve megadása")){ // Ha a validateFormHtmlField fuggveny hamissal ter vissza a bementei lastName htmlElement eseten
+        valid = false; // a valid valtozo erteket false-ra allitjuk
     }
-    /**
-    * ha a checkbox kivan pipálva de mu2 inputben nincs akkor kiírja a hibát
-    */
-    if(HtmlElementMasodik.checked && HtmlElementMu2.value === ""){
-        valid = false
-        validatefield(HtmlElementMu2, HtmlElementMasodik, "Kötelező megadni a második művet")
+
+    if(!validationFormHTMLField(HtmlElementGroup, "Kötelező a csoport megadása")){ // Ha a validateFormHtmlField fuggveny hamissal ter vissza a bementei lastName htmlElement eseten
+        valid = false;  // a valid valtozo erteket false-ra allitjuk
+    }
+    if(!validationFormHTMLField(HtmlElementMu1, "Kötelező megadni a mű címét")){ // Ha a validateFormHtmlField fuggveny hamissal ter vissza a bementei lastName htmlElement eseten
+        valid = false;  // a valid valtozo erteket false-ra allitjuk
     }
     return valid
 }
 
 //------------------------------------------------------------------------------------------------
 
-function validatefield(cellElement,checkBox, message){//létrehozzuk a validációs functiont
-    let valid = true;
-
+function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a validációs functiont
+    let valid = true;//létrehozzunk egy booleant változót és megadjuk az értéket truera
     /**
-     * ha mindkettő jó akkor a valid értékét vissza adja
+     * kiüríti a error innerhtml-t
      */
-        if (!checkBox.checked && cellElement.value === "") {
-            return valid;
+    const error = form.querySelectorAll('.error');
+    for(const errors of error)
+    {
+    errors.innerHTML = "";
+    }
+    /**
+     * ha a doboz ki van pipálva de nem adtuk meg a 2. mű címét akkor egy errort ír ki
+     */
+    if (HtmlElementMasodik.checked && HtmlElementMu2.value === '') {
+        const parentElement = HtmlElementMu2.parentElement;
+        const error = parentElement.querySelector('.error');
+        if (error !== null) {
+            error.innerHTML = "Kötelező a második mű megadása!";
         }
+        valid = false;
+    }
+    /**
+     * ha a doboz nincs ki pipálva de meg adtuk a 2. mű címét akkor egy errort ír ki
+     */
+    if (HtmlElementMu2.value !== '' && !HtmlElementMasodik.checked) {
+        const parentElement = HtmlElementMasodik.parentElement;
+        const error = parentElement.querySelector('.error');
+        if (error !== null) {
+            error.innerHTML = "A második műhöz ki kell pipálni a dobozt!";
+        }
+        valid = false;
+    }
+    return valid//vissza adjuk a valid értékét
+}
 
-        /**
-         * elösször megnézzük az element típusát
-         * és ha a cella üres akkor a valid booleant false értéket add meg és a cella felnőtelemében lévő
-         * error divbe ki írja a megadott message paraméter stringet
-         * 
-         */
-        if(cellElement.value === "" && checkBox.checked){
-            valid = false; 
-    
-                    const parentElement = checkBox.parentElement;
-                    const error = parentElement.querySelector('.error');
-                    if (error !== null) {
-                        error.innerHTML = message;
-                }
-        }
-    
-        /**
-         * elösször megnézzük az element típusát
-         * és ha a doboz nincs kipipálva akkor a valid booleant false értéket add meg és a cella felnőtelemében lévő
-         * error divbe ki írja a megadott message paraméter stringet
-         * 
-         */
-        if(cellElement.value != undefined && !checkBox.checked){
-            valid = false; 
-    
-                    const parentElement = cellElement.parentElement;
-                    const error = parentElement.querySelector('.error');
-                    if (error !== null) {
-                        error.innerHTML = message;
-                }
-        }
 
+function validationFormHTMLField(cellElement, message){
+    valid = true
+    if(cellElement.value === ""){
+        const parentElement = cellElement.parentElement;
+        const error = parentElement.querySelector('.error');
+        if (error !== null) {
+            error.innerHTML = message;
+        }
+        valid = false;
+    }
     return valid
 }
