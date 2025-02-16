@@ -63,10 +63,11 @@ thead.appendChild(tablaheader)//tablaheader sorának hozzáadása
 }
 //----------------------------------------------------------------------------------------- függvény
 
-function renderTable(){//definiálom a renderTable függvényt
-    for(const currentElement of array){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
+function renderTable(arrays){//definiálom a renderTable függvényt amelynek paramétere a globális array lesz
+    for(const currentElement of arrays){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
+        const tablebody = document.querySelector('tbody')
         const row = document.createElement('tr');//létrehozzuk a row elemet
-        tbody.appendChild(row);//a sort hozzá adjuk a táblához
+        tablebody.appendChild(row);//a sort hozzá adjuk a táblához
 
         const szerzo = document.createElement('td');//létrehozzuk a szerzo cellát
         szerzo.innerHTML = currentElement.szerzo;//a szerzo cella tartalmaza a ciklusváltozó objektumnak szerző tulajdonságát
@@ -89,7 +90,7 @@ function renderTable(){//definiálom a renderTable függvényt
         }
     }
 }
-renderTable()//meghívjuk a függvényt
+renderTable(array)//meghívjuk a függvényt
 
 //----------------------------------------------------------------------------------------- form
 
@@ -140,7 +141,7 @@ form.addEventListener('submit', function(e){
     if(validatefield(HtmlElementMu2,HtmlElementMasodik)){
     array.push(newElement);
     tbody.innerHTML = "";
-    renderTable();
+    renderTable(array);
     form.reset()
     }
     }
