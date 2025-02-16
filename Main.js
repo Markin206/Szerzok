@@ -36,9 +36,9 @@ tabla.appendChild(thead)//thead hozzáadása a táblához
 
 const tbody = document.createElement('tbody')//tbody elem létrehozása
 tabla.appendChild(tbody)//tbody hozzáadása a táblához
-
+renderHeader()
 //----------------------------------------------------------------------------------------- header
-
+function renderHeader(){
 const headerObj = {
 //array tömb első elemnek létrehozása(header)
     szerzo: "Szerző",//hozzáadjuk a szerző tulajdonságot és értéket adunk neki
@@ -60,7 +60,7 @@ muveik.innerHTML = headerObj.muveik;//A cella tartalma az headerobj elem muveik 
 muveik.colSpan = 2;//a művek oszlopnak colspan értéke 2.
 tablaheader.appendChild(muveik)//hozzáadom a fejléchez a műveik cellát
 thead.appendChild(tablaheader)//tablaheader sorának hozzáadása
-
+}
 //----------------------------------------------------------------------------------------- függvény
 
 function renderTable(){//definiálom a renderTable függvényt
@@ -152,11 +152,16 @@ form.addEventListener('submit', function(e){
 
 function simpleValidation(HtmlElementMu2,HtmlElementMasodik){
     let valid = true;
-
+    /**
+     * ha a checkbox üres de mu2 inputben van érték akkor kiírja a hibát
+     */
     if(!HtmlElementMasodik.checked && HtmlElementMu2.value !== ""){
         valid = false;
         validatefield(HtmlElementMu2, HtmlElementMasodik, "Ha akkarsz második műt megadni pipáld ki a dobozt")
     }
+    /**
+    * ha a checkbox kivan pipálva de mu2 inputben nincs akkor kiírja a hibát
+    */
     if(HtmlElementMasodik.checked && HtmlElementMu2.value === ""){
         valid = false
         validatefield(HtmlElementMu2, HtmlElementMasodik, "Kötelező megadni a második művet")
