@@ -36,7 +36,7 @@ tabla.appendChild(thead)//thead hozzáadása a táblához
 
 const tbody = document.createElement('tbody')//tbody elem létrehozása
 tabla.appendChild(tbody)//tbody hozzáadása a táblához
-renderHeader()
+
 //----------------------------------------------------------------------------------------- header
 function renderHeader(){
 const headerObj = {
@@ -90,7 +90,6 @@ function renderTable(arrays){//definiálom a renderTable függvényt amelynek pa
         }
     }
 }
-renderTable(array)//meghívjuk a függvényt
 
 //----------------------------------------------------------------------------------------- form
 
