@@ -90,7 +90,10 @@ tablaheader.appendChild(muveik)//hozzáadom a fejléchez a műveik cellát
 thead.appendChild(tablaheader)//tablaheader sorának hozzáadása
 }
 //----------------------------------------------------------------------------------------- függvény
-
+/**
+ * 
+ * @param {Array} arrays 
+ */
 function renderTable(arrays){//definiálom a renderTable függvényt amelynek paramétere a globális array lesz
     for(const currentElement of arrays){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
         const tablebody = document.querySelector('tbody')
@@ -206,7 +209,13 @@ form.addEventListener('submit', function(e){
 
 
 //------------------------------------------------------------------------------------------------
-//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
+/**
+ * 
+ * @param {string} HtmlElementSzerzo 
+ * @param {string} HtmlElementGroup 
+ * @param {string} HtmlElementMu1 
+ * @returns {boolean}
+ */
     function simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1){
     let valid = true; // a valid valtozo erteke igaz
 
@@ -224,7 +233,12 @@ form.addEventListener('submit', function(e){
 }
 
 //------------------------------------------------------------------------------------------------
-
+/**
+ * 
+ * @param {string} HtmlElementMu2 
+ * @param {boolean} HtmlElementMasodik 
+ * @returns {boolean}
+ */
 function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a validációs functiont
     let valid = true;//létrehozzunk egy booleant változót és megadjuk az értéket truera
     /**
@@ -260,7 +274,14 @@ function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a valid
     return valid//vissza adjuk a valid értékét
 }
 
-
+/**
+ * ezzel a field-el nézzük meg hogyha a megadott input üres vagy sem,
+ * ha üres akkor hibát add ki és ki írja,
+ * azt a szöveget amelyt még meghiváskor megadunk
+ * @param {HTMLTableCellElement} cellElement 
+ * @param {string} message 
+ * @returns {boolean}
+ */
 function validationFormHTMLField(cellElement, message){
     valid = true
     if(cellElement.value === ""){
