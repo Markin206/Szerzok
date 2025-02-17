@@ -1,6 +1,3 @@
-
-
-
 //----------------------------------------------------------------------------------------- renderheader függvény 
 function renderHeader(){
     const headerObj = {
@@ -53,95 +50,38 @@ function renderTable(arrays){//definiálom a renderTable függvényt amelynek pa
             row.appendChild(mu2);//a mu2 cella hozzáfűzzűk a rowhoz
         }
         else{
-            mu1.colSpan = 2;
+            mu1.colSpan = 2;//ha nem akkor a mu1 colspan-je 2 lesz
         }
     }
 }
 //----------------------------------------------------------------------------------------- createForm és form függvények
-function createForm() {
-    const form = document.createElement('form'); 
-    const button = document.createElement('button')
-    button.innerHTML = "Hozzáadás";
-    for(const formElement of formArray) {
-        const formDiv = document.createElement('div');
-        const formLabel = document.createElement('label');
-        const formInput = document.createElement('input');
-        const formError = document.createElement('div');
+function createForm() {//létrehozzuk a függvényt
+    const form = document.createElement('form'); //létrehozunk egy form elemet
+    const button = document.createElement('button')//létrehozunk egy gomb elemet
+    button.innerHTML = "Hozzáadás";//gombnak innerhtml-nek adunk értéket
+    for(const formElement of formArray) {//végig iterálunk a formArrayen
+        const formDiv = document.createElement('div');//létrehozunk egy div elemet
+        const formLabel = document.createElement('label');//létrehozunk egy label elemet
+        const formInput = document.createElement('input');//létrehozunk egy input elemet
+        const formError = document.createElement('div');//létrehozunk egy div elemet
 
-        formLabel.innerHTML = formElement.label;
-        formInput.type = formElement.input_type;
-        formInput.name = formElement.id;
-        formInput.id = formElement.id;
-        formError.classList.add("error");
+        formLabel.innerHTML = formElement.label;//a létrehozott labelnek innerhtml-nek megadjuk a formElement objektum label tulajdonságát
+        formInput.type = formElement.input_type;//a létrehozott input type-ját megadjuk a formElement objektum input_type tulajdonságát
+        formInput.name = formElement.id;//a létrehozott input name-jét megadjuk a formElement objektum id tulajdonságát
+        formInput.id = formElement.id;//a létrehozott input id-ját megadjuk a formElement objektum id tulajdonságát
+        formError.classList.add("error");//az error div elemnek megadjuk az error osztályt
 
-        formDiv.appendChild(formLabel);
-        formDiv.appendChild(document.createElement('br'));
-        formDiv.appendChild(formInput);
-        formDiv.appendChild(document.createElement('br'));
-        formDiv.appendChild(formError);
-        formDiv.appendChild(document.createElement('br'));
-        form.appendChild(formDiv);
+        formDiv.appendChild(formLabel);//a létrehozzot divhez hozzáadjuk a létrehozott label
+        formDiv.appendChild(document.createElement('br'));//a létrehozzot divhez hozzáadjuk a létrehozott break line
+        formDiv.appendChild(formInput);//a létrehozzot divhez hozzáadjuk a létrehozott input
+        formDiv.appendChild(document.createElement('br'));//a létrehozzot divhez hozzáadjuk a létrehozott break line
+        formDiv.appendChild(formError);//a létrehozzot divhez hozzáadjuk a létrehozott error
+        formDiv.appendChild(document.createElement('br'));//a létrehozzot divhez hozzáadjuk a létrehozott break line
+        form.appendChild(formDiv);//hozzáadjuk a létrehozott div-et a létrehozott form elementhez
     }
-    form.appendChild(button)
-    document.body.appendChild(form);
+    form.appendChild(button)//hozzáadjuk a létrehozott gombot a létrehozott form elementhez
+    document.body.appendChild(form);//hozzáadjuk a weboldal body elemhez a form-ot
 }
-
-const form = document.querySelector('form');
-
-form.addEventListener('submit', function(e){
-    e.preventDefault();//megakadalyozom, hogy a bongeszo alapertelmezett mukodese lefusson submit eseten
-    const HtmlElementSzerzo = document.getElementById('szerzo_nev');//elkerem a htmlelementet, amely a szerzo_nev id-val van definialva
-    const HtmlElementGroup = document.getElementById('group');//elkerem a htmlelementet, amely a group id-val van definialva
-    const HtmlElementMu1 = document.getElementById('mu1');//elkerem a htmlelementet, amely a mu1 id-val van definialva
-    const HtmlElementMasodik = document.getElementById('masodik');//elkerem a htmlelementet, amely a masodik id-val van definialva
-    const HtmlElementMu2 = document.getElementById('mu2');//elkerem a htmlelementet, amely a mu2 id-val van definialva
-
-    const thisForm = e.currentTarget; // Az event currentTarget tulajdonsaga a formunkat tartalmazza, ezt eltaroljuk egy lokalis valtozoba 
-    const errorHtmlElements = thisForm.querySelectorAll('.error'); // A formon beluli osszes error classal rendelkezo html elementet elkerjuk
-    for(const errorElement of errorHtmlElements){ // Vegigiteralunk a visszakapott errorhtmlelementeken
-        errorElement.innerHTML = ''; // toroljuk az aktualis elem tartalmat
-    }
-    if(simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1)){
-    const szerzo_value = HtmlElementSzerzo.value;//a HtmlElementSzerzo.value erteket beleteszem egy lokalis valtozoba
-    const group_value = HtmlElementGroup.value;//a HtmlElementGroup.value erteket beleteszem egy lokalis valtozoba
-    const Mu1_value = HtmlElementMu1.value;//a HtmlElementMu1.value erteket beleteszem egy lokalis valtozoba
-    const masodik_value = HtmlElementMasodik.checked;
-    let Mu2_value = HtmlElementMu2.value ;//a HtmlElementMu2.value erteket beleteszem egy lokalis valtozoba
-
-    if (!masodik_value) {
-        Mu2_value = undefined;
-    }
-
-
-    /**
-     * létrehozunk egy tömböt amely 4. sor lesz, amely 4 tulajdonsága lesz és hozzá adjuk
-     * a hozzájuk tartozó értékeiket
-     */
-    const newElement = {
-        szerzo: szerzo_value,
-        csapat: group_value,
-        mu1: Mu1_value,
-        mu2: Mu2_value
-    }
-    console.log(newElement)
-    /**
-     * ha validáció igaz akkor kitöltjük az újsort
-     * és kiürítjuk a tablet hogy ne renderelje be újból
-     * és miután kiürítettük újra meghívjuk a tablet
-     * aztán a formra nyomunk egy resetet
-     */
-    if(validatefield(HtmlElementMu2,HtmlElementMasodik)){
-    array.push(newElement);
-    tbody.innerHTML = "";
-    renderTable(array);
-    form.reset()
-    }
-    }
-})
-
-
-
-
 //------------------------------------------------------------------------------------------------
 /**
  * 
@@ -150,7 +90,7 @@ form.addEventListener('submit', function(e){
  * @param {string} HtmlElementMu1 
  * @returns {boolean}
  */
-    function simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1){
+    function simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1){//létrehozzuk a függvényt
     let valid = true; // a valid valtozo erteke igaz
 
     if(!validationFormHTMLField(HtmlElementSzerzo, "Kötelező a szerző neve megadása")){ // Ha a validateFormHtmlField fuggveny hamissal ter vissza a bementei lastName htmlElement eseten
@@ -163,7 +103,7 @@ form.addEventListener('submit', function(e){
     if(!validationFormHTMLField(HtmlElementMu1, "Kötelező megadni a mű címét")){ // Ha a validateFormHtmlField fuggveny hamissal ter vissza a bementei lastName htmlElement eseten
         valid = false;  // a valid valtozo erteket false-ra allitjuk
     }
-    return valid
+    return valid//vissza adja a valid értékét
 }
 
 //------------------------------------------------------------------------------------------------ validációs függvények
@@ -178,32 +118,32 @@ function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a valid
     /**
      * kiüríti a error innerhtml-t
      */
-    const error = form.querySelectorAll('.error');
-    for(const errors of error)
+    const error = form.querySelectorAll('.error');//kiválasztjuk az összes div-et amely error osztályt tartalmaz
+    for(const errors of error)//végig iterálunk az összes error div-en
     {
-    errors.innerHTML = "";
+    errors.innerHTML = "";//kiürítjük a divet
     }
     /**
      * ha a doboz ki van pipálva de nem adtuk meg a 2. mű címét akkor egy errort ír ki
      */
-    if (HtmlElementMasodik.checked && HtmlElementMu2.value === '') {
-        const parentElement = HtmlElementMu2.parentElement;
-        const error = parentElement.querySelector('.error');
-        if (error !== null) {
-            error.innerHTML = "Kötelező a második mű megadása!";
+    if (HtmlElementMasodik.checked && HtmlElementMu2.value === '') {//ha a doboz ki van pipálva de a mu2 input üres akkor belép
+        const parentElement = HtmlElementMu2.parentElement;//példányosítjuk a mu2-nak parent elemét
+        const error = parentElement.querySelector('.error');//kiválasztjuk az error osztályal rendelkező div-et
+        if (error !== null) {//ha error nem null akkor belép
+            error.innerHTML = "Kötelező a második mű megadása!";//kiírja az error szöveget
         }
-        valid = false;
+        valid = false;//valid értéke false lesz mivel errort kaptunk
     }
     /**
      * ha a doboz nincs ki pipálva de meg adtuk a 2. mű címét akkor egy errort ír ki
      */
-    if (HtmlElementMu2.value !== '' && !HtmlElementMasodik.checked) {
-        const parentElement = HtmlElementMasodik.parentElement;
-        const error = parentElement.querySelector('.error');
-        if (error !== null) {
-            error.innerHTML = "A második műhöz ki kell pipálni a dobozt!";
+    if (HtmlElementMu2.value !== '' && !HtmlElementMasodik.checked) {//ha a mu2 nem üres de a doboz ki van pipálva akkor bemegy
+        const parentElement = HtmlElementMasodik.parentElement;//példányosítjuk a masodik-nak parent elemét
+        const error = parentElement.querySelector('.error');//kiválasztjuk az error osztályal rendelkező div-et
+        if (error !== null) {//ha error nem null akkor belép
+            error.innerHTML = "A második műhöz ki kell pipálni a dobozt!";//kiírja az error szöveget
         }
-        valid = false;
+        valid = false;//valid értéke false lesz mivel errort kaptunk
     }
     return valid//vissza adjuk a valid értékét
 }
@@ -216,15 +156,15 @@ function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a valid
  * @param {string} message 
  * @returns {boolean}
  */
-function validationFormHTMLField(cellElement, message){
-    valid = true
-    if(cellElement.value === ""){
-        const parentElement = cellElement.parentElement;
-        const error = parentElement.querySelector('.error');
-        if (error !== null) {
-            error.innerHTML = message;
+function validationFormHTMLField(cellElement, message){//létrehozunk egy validációs függvény amelynek kettő paramétere lesz. Az 1. amely a megadott cellát tartalmazza és a 2. amely a szöveget tartalmazza
+    let valid = true//létrehozzunk egy booleant változót és megadjuk az értéket truera
+    if(cellElement.value === ""){//ha a megadott cella/input üres és tipusa megegyezik akkor belép
+        const parentElement = cellElement.parentElement;//ugyanúgy meghívjuk a parent elemet mint a szimpla validációnál
+        const error = parentElement.querySelector('.error');//kiválasztjuk az error osztályal rendelkező div-et
+        if (error !== null) {//ha error nem null akkor belép
+            error.innerHTML = message;//az error divnek innerhtml-be a majd megadott szöveget kapja meg
         }
-        valid = false;
+        valid = false;//valid értéke false lesz mivel errort kaptunk
     }
-    return valid
+    return valid//vissza adjuk a valid értékét
 }
