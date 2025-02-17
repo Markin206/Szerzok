@@ -25,7 +25,7 @@ function renderHeader(){
 //----------------------------------------------------------------------------------------- rendertable függvény    
 /**
  * 
- * @param {Array} arrays 
+ * @param {Array} arrays ez lesz az a tömb amelyen végig iterálunk és a benne lévő adatokat kiiratjuk a függvényel
  */
 function renderTable(arrays){//definiálom a renderTable függvényt amelynek paramétere a globális array lesz
     for(const currentElement of arrays){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
@@ -85,10 +85,10 @@ function createForm() {//létrehozzuk a függvényt
 //------------------------------------------------------------------------------------------------
 /**
  * 
- * @param {string} HtmlElementSzerzo 
- * @param {string} HtmlElementGroup 
- * @param {string} HtmlElementMu1 
- * @returns {boolean}
+ * @param {string} HtmlElementSzerzo szerzo input a formból
+ * @param {string} HtmlElementGroup a csoportok input a formból
+ * @param {string} HtmlElementMu1 az 1. mű input a formból
+ * @returns {boolean} ez a valid lesz amely majd engedélyezni fogja hogy egyáltalán hozzá lehesen adni egy új sort vagy sem
  */
     function simpleValidation(HtmlElementSzerzo,HtmlElementGroup,HtmlElementMu1){//létrehozzuk a függvényt
     let valid = true; // a valid valtozo erteke igaz
@@ -109,9 +109,9 @@ function createForm() {//létrehozzuk a függvényt
 //------------------------------------------------------------------------------------------------ validációs függvények
 /**
  * 
- * @param {string} HtmlElementMu2 
- * @param {boolean} HtmlElementMasodik 
- * @returns {boolean}
+ * @param {string} HtmlElementMu2 a 2. mű elem
+ * @param {boolean} HtmlElementMasodik a checkbox input a formból
+ * @returns {boolean}//ez ugyan úgy a valid lesz amely engedélyezi vagy sem hogy hozzá lehesen adni a 2.műt vagy sem
  */
 function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a validációs functiont
     let valid = true;//létrehozzunk egy booleant változót és megadjuk az értéket truera
@@ -152,9 +152,9 @@ function validatefield(HtmlElementMu2,HtmlElementMasodik){//létrehozzuk a valid
  * ezzel a field-el nézzük meg hogyha a megadott input üres vagy sem,
  * ha üres akkor hibát add ki és ki írja,
  * azt a szöveget amelyt még meghiváskor megadunk
- * @param {HTMLTableCellElement} cellElement 
- * @param {string} message 
- * @returns {boolean}
+ * @param {HTMLTableCellElement} cellElement egy cella element amelyt majd megadunk a meghívásnál
+ * @param {string} message a szöveg amelyt majd kiiratunk meghívásnál
+ * @returns {boolean} a valid amelyt vissza adunk a simpleValidation függvénynek
  */
 function validationFormHTMLField(cellElement, message){//létrehozunk egy validációs függvény amelynek kettő paramétere lesz. Az 1. amely a megadott cellát tartalmazza és a 2. amely a szöveget tartalmazza
     let valid = true//létrehozzunk egy booleant változót és megadjuk az értéket truera
