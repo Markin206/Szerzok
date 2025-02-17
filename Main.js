@@ -1,4 +1,4 @@
-//----------------------------------------------------------------------------------------- array
+//----------------------------------------------------------------------------------------- array of szerzok
 
 const array = [
     {//array tömb első elemnek létrehozása(1st row)
@@ -24,6 +24,34 @@ const array = [
         mu1:"Pogány köszöntő",//hozzáadjuk az 1. mu tulajdonságot és értéket adunk neki
         mu2:"Járkálj csak, halálraítélt"//hozzáadjuk az 2. mu tulajdonságot és értéket adunk neki
     }
+]
+//----------------------------------------------------------------------------------------- array of form
+const formArray = [
+    {
+        label : "Szerző neve:",
+        id: "szerzo_nev",
+        input_type: "text"
+    },
+    {
+        label : "Csapat:",
+        id: "group",
+        input_type: "text"
+    },
+    {
+        label : "Első mű:",
+        id: "mu1",
+        input_type: "text"
+    },
+    {
+        label : "Szeretnél megadni második művet is?",
+        id: "masodik",
+        input_type: "checkbox"
+    },
+    {
+        label : "Második mű:",
+        id: "mu2",
+        input_type: "text"
+    },
 ]
 
 //----------------------------------------------------------------------------------------- table, tbody, thead
@@ -90,10 +118,38 @@ function renderTable(arrays){//definiálom a renderTable függvényt amelynek pa
         }
     }
 }
-
+renderHeader();
+renderTable(array);
 //----------------------------------------------------------------------------------------- form
+function createForm() {
+    const form = document.createElement('form'); 
+    const button = document.createElement('button')
+    button.innerHTML = "Hozzáadás";
+    for(const formElement of formArray) {
+        const formDiv = document.createElement('div');
+        const formLabel = document.createElement('label');
+        const formInput = document.createElement('input');
+        const formError = document.createElement('div');
 
-const form = document.getElementById('form');
+        formLabel.innerHTML = formElement.label;
+        formInput.type = formElement.input_type;
+        formInput.name = formElement.id;
+        formInput.id = formElement.id;
+        formError.classList.add("error");
+
+        formDiv.appendChild(formLabel);
+        formDiv.appendChild(document.createElement('br'));
+        formDiv.appendChild(formInput);
+        formDiv.appendChild(document.createElement('br'));
+        formDiv.appendChild(formError);
+        formDiv.appendChild(document.createElement('br'));
+        form.appendChild(formDiv);
+    }
+    form.appendChild(button)
+    document.body.appendChild(form);
+}
+createForm();
+const form = document.querySelector('form');
 
 form.addEventListener('submit', function(e){
     e.preventDefault();//megakadalyozom, hogy a bongeszo alapertelmezett mukodese lefusson submit eseten
@@ -130,7 +186,7 @@ form.addEventListener('submit', function(e){
         mu1: Mu1_value,
         mu2: Mu2_value
     }
-    
+    console.log(newElement)
     /**
      * ha validáció igaz akkor kitöltjük az újsort
      * és kiürítjuk a tablet hogy ne renderelje be újból
