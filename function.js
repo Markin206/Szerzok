@@ -1,26 +1,29 @@
 //----------------------------------------------------------------------------------------- renderheader függvény 
-function renderHeader(){
+/**
+ * Létrehozunk egy header sort amelybe bele rakjuk a 3 cellát és aztán hozzáadjuk a fejléchez
+ * @param {HTMLTableRowElement} tableheader 
+ */
+function renderHeader(tableheader){
     const headerObj = {
     //array tömb első elemnek létrehozása(header)
         szerzo: "Szerző",//hozzáadjuk a szerző tulajdonságot és értéket adunk neki
         csapat: "Csapat",//hozzáadjuk a csapat tulajdonságot és értéket adunk neki
         muveik: "Műveik"//hozzáadjuk a muveik tulajdonságot és értéket adunk neki
     }
-    const tablaheader = document.createElement('tr')//Létrehozzunk egy tablerow elemet ahová a táblázat fejlécét rakjuk
     
     const szerzo = document.createElement('th')//Létrehozzunk egy th elemet ami a fejlécem cellája lesz
     szerzo.innerHTML = headerObj.szerzo;//A cella tartalma az headerobj elem szerzo tulajdonságának értéke lesz
-    tablaheader.appendChild(szerzo);//hozzáadom a fejléchez a szerzo cellát
+    tableheader.appendChild(szerzo);//hozzáadom a fejléchez a szerzo cellát
     
     const csapat = document.createElement('th')//Létrehozzunk egy th elemet ami a fejlécem cellája lesz
     csapat.innerHTML = headerObj.csapat;//A cella tartalma az headerobj elem csapat tulajdonságának értéke lesz
-    tablaheader.appendChild(csapat)//hozzáadom a fejléchez a szerzo cellát
+    tableheader.appendChild(csapat)//hozzáadom a fejléchez a szerzo cellát
     
     const muveik = document.createElement('th')//Létrehozzunk egy th elemet ami a fejlécem cellája lesz
     muveik.innerHTML = headerObj.muveik;//A cella tartalma az headerobj elem muveik tulajdonságának értéke lesz
     muveik.colSpan = 2;//a művek oszlopnak colspan értéke 2.
-    tablaheader.appendChild(muveik)//hozzáadom a fejléchez a műveik cellát
-    thead.appendChild(tablaheader)//tablaheader sorának hozzáadása
+    tableheader.appendChild(muveik)//hozzáadom a fejléchez a műveik cellát
+    thead.appendChild(tableheader)//tablaheader sorának hozzáadása
     }
 //----------------------------------------------------------------------------------------- rendertable függvény    
 /**
@@ -55,11 +58,15 @@ function renderTable(arrays){//definiálom a renderTable függvényt amelynek pa
     }
 }
 //----------------------------------------------------------------------------------------- createForm és form függvények
-function createForm() {//létrehozzuk a függvényt
+/**
+ * Létrehozzuk a formot a függvény által
+ * @param {Array} formArrays az a array amely tartalmazza a formhoz szükséges elemeket
+ */
+function createForm(formArrays) {//létrehozzuk a függvényt
     const form = document.createElement('form'); //létrehozunk egy form elemet
     const button = document.createElement('button')//létrehozunk egy gomb elemet
     button.innerHTML = "Hozzáadás";//gombnak innerhtml-nek adunk értéket
-    for(const formElement of formArray) {//végig iterálunk a formArrayen
+    for(const formElement of formArrays) {//végig iterálunk a formArrayen
         const formDiv = document.createElement('div');//létrehozunk egy div elemet
         const formLabel = document.createElement('label');//létrehozunk egy label elemet
         const formInput = document.createElement('input');//létrehozunk egy input elemet
@@ -84,7 +91,7 @@ function createForm() {//létrehozzuk a függvényt
 }
 //------------------------------------------------------------------------------------------------
 /**
- * 
+ * ezzel a függvényel nézzük végig a különböző inputokat ha esetleg üresek akkor hibát add ki
  * @param {string} HtmlElementSzerzo szerzo input a formból
  * @param {string} HtmlElementGroup a csoportok input a formból
  * @param {string} HtmlElementMu1 az 1. mű input a formból
@@ -108,7 +115,9 @@ function createForm() {//létrehozzuk a függvényt
 
 //------------------------------------------------------------------------------------------------ validációs függvények
 /**
- * 
+ * a validate field azt nézi hogy a checkbox checkolva van és a mu2 üres márha a felhasználó nem add meg mu2
+ * ha add de nem pipálja ki a check boxot akkor hibát jelez
+ * ha nem add de ki pipálta a check boxot akkor is hibát jelez
  * @param {string} HtmlElementMu2 a 2. mű elem
  * @param {boolean} HtmlElementMasodik a checkbox input a formból
  * @returns {boolean}//ez ugyan úgy a valid lesz amely engedélyezi vagy sem hogy hozzá lehesen adni a 2.műt vagy sem

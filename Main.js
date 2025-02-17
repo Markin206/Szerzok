@@ -65,9 +65,10 @@ tabla.appendChild(thead)//thead hozzáadása a táblához
 const tbody = document.createElement('tbody')//tbody elem létrehozása
 tabla.appendChild(tbody)//tbody hozzáadása a táblához
 
+const tablaheader = document.createElement('tr')//Létrehozzunk egy tablerow elemet ahová a táblázat fejlécét rakjuk
 //----------------------------------------------------------------------------------------- header
-createForm();//létrehozzuk a form-ot a createForm függvény segítségével
-renderHeader();//meghívjuk a renderHeader függvényt amely létrehozza a headert
+createForm(formArray);//létrehozzuk a form-ot a createForm függvény segítségével
+renderHeader(tablaheader);//meghívjuk a renderHeader függvényt amely létrehozza a headert
 renderTable(array);//meghívjuk a rendertablet és létrehozzuk a tablet
 
 const form = document.querySelector('form');//kiválasztjuk a form osztályal rendelkező HTML elemet
